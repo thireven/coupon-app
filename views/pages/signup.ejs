@@ -1,0 +1,32 @@
+<% include ../partials/header %>
+    <% include ../partials/navigation %>
+      <main role="main"></main>
+        <% include ../partials/outputMessage %>
+            <section role="region" class="container" id="signup-section">
+                <h1>Sign up</h1>
+                <form action="/user" method="post" id="js-signup-form">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" name="firstName" class="form-control" id="input-firstName" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" name="lastName" class="form-control" id="input-lastName" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" name="username" class="form-control" id="input-username" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" name="password" class="form-control" id="input-password" required />
+                    </div>
+                    <button type="submit" class="btn btn-primary" value="signUp">Sign up</button>
+                </form>
+            </section>
+            <section role="region" id="login-link-section">
+                <p>Already a user? <a href="/login">Login</a></p>
+            </section>
+            <p id="password-username-error"></p>
+            <script src="/javascripts/index.js"></script>
+<% include ../partials/footer %>
