@@ -38,13 +38,14 @@ app.use(function (req, res, next) {
 
 passport.use(localStrategy);
 passport.use(jwtStrategy);
+
 const jwtAuth = passport.authenticate('jwt', { session: false });
 
 app.use('/', indexRouter);
 app.use('/users', userRouter);
 app.use('/auth', authRouter);
-//app.use('/coupon', couponRouter);
-app.use('/coupon', jwtAuth, couponRouter);
+app.use('/coupon', couponRouter);
+//app.use('/coupon', jwtAuth, couponRouter);
 
 
 

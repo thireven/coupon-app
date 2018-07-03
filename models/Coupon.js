@@ -14,7 +14,8 @@ const CouponSchema = mongoose.Schema({
     },
     description: {
         type: String
-    }
+    },
+    // userId: {type: ObjectId }
 });
 
 CouponSchema.methods.serialize = function () {

@@ -22,8 +22,10 @@ function signupHandler(){
         $('#input-username').val('');
         $('#input-password').val('');
 
+        // window.location.href = '/login';
+
         const successfulMsg = (`<p>Your Account has been successfully created </p>`);
-        $('#js-msg-output').html(`<div class="alert alert-success" role="alert">Your Account has been registered!</div>`);
+        $('#js-msg-output').html(`<div class="alert alert-success text-center" role="alert">Your Account has been registered!</div>`);
       },
       error: (err) => {
         const errorMsg = (`This username is taken or the password is invalid`);
@@ -63,13 +65,20 @@ function logInWithToken(){
 			xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('Token')}`);
 		},
 		success: function(res){
-			profile_basics = res;
-      console.log(res);
-      //go to coupon page
-      //displayCouponPage();
-		},
+			//profile_basics = res;
+
+      $('#input-username').val('');
+      $('#input-password').val('');
+
+
+      console.log('our Account has been successfully created');
+      $('#js-msg-output').html(`<div class="alert alert-success text-center" role="alert">Success</div>`);
+
+      window.location.href = '/coupon';
+
+    },
 		error: function(err){
-      console.log("something went wrong");
+      console.log('something went wrong');
 		}
 	});
 }

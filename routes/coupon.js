@@ -8,18 +8,18 @@ const jsonParser = bodyParser.json();
 
 
 // returns the username from a request 'authorization' header
-function getUsernameFromJwt(req){
-	const token = req.headers.authorization.split(' ')[1];
-	const tokenPayload = jwt.verify(token, JWT_SECRET);
-	const username = tokenPayload.user.username;
-
-	return username;
-}
+// function getUsernameFromJwt(req){
+// 	const token = req.headers.authorization.split(' ')[1];
+// 	const tokenPayload = jwt.verify(token, JWT_SECRET);
+// 	const username = tokenPayload.user.username;
+//
+// 	return username;
+// }
 
 // GETS ALL COUPONS
 router.get('/', (req, res) => {
 
-  const _username = getUsernameFromJwt(req);
+  //const _username = getUsernameFromJwt(req);
 
   CouponModel.find({})
         .then(coupons =>
