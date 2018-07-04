@@ -15,19 +15,10 @@ function renderCoupons(res){
             <span class="icons icon-budicon-classic edit-icon js-edit-icon" alt="edit-icon"></span>
             <span class="icons icon-budicon-classic-2 delete-icon js-delete-icon" alt="delete-icon"></span>
         </div>
-        <h2 class="coupon-merchant-name">
-            ${res.merchantName}
-        </h2>
-        <p class="coupon-code">
-            ${res.code}
-        </p>
-        <p class="coupon-expiration-date">
-            Valid til
-            ${res.expirationDate}
-        </p>
-        <p class="coupon-description">
-            ${res.description}
-        </p>
+        <h2 class="coupon-merchant-name">${res.merchantName}</h2>
+        <p class="coupon-code">${res.code}</p>
+        <p class="coupon-expiration-date">Valid til ${res.expirationDate}</p>
+        <p class="coupon-description">${res.description}</p>
     </section>`;
 }
 
@@ -85,8 +76,6 @@ function deleteCouponFromApi() {
         }
     };
 }
-
-
 
 function initalizeCouponApp() {
     watchSubmitAddNewCoupon();

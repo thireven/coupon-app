@@ -16,7 +16,6 @@ function signupHandler(){
       },
       success: function(res) {
         //display message to user stating account has been successfully created
-
         $('#input-firstName').val('');
         $('#input-lastName').val('');
         $('#input-username').val('');
@@ -24,8 +23,11 @@ function signupHandler(){
 
         // window.location.href = '/login';
 
-        const successfulMsg = (`<p>Your Account has been successfully created </p>`);
-        $('#js-msg-output').html(`<div class="alert alert-success text-center" role="alert">Your Account has been registered!</div>`);
+        $('#js-msg-output').html(`<div class="alert alert-success alert-dismissible fade show" role="alert">Your Account has been registered!
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          </div`);
       },
       error: (err) => {
         const errorMsg = (`This username is taken or the password is invalid`);
@@ -66,16 +68,15 @@ function logInWithToken(){
 		},
 		success: function(res){
 			//profile_basics = res;
-
+      console.log("jessica");
+      console.log(res);
       $('#input-username').val('');
       $('#input-password').val('');
-
 
       console.log('our Account has been successfully created');
       $('#js-msg-output').html(`<div class="alert alert-success text-center" role="alert">Success</div>`);
 
       window.location.href = '/coupon';
-
     },
 		error: function(err){
       console.log('something went wrong');
@@ -83,27 +84,9 @@ function logInWithToken(){
 	});
 }
 
-function displayCouponPage(){
-  // get to secret page
-	$.ajax({
-		url: '/coupon',
-		type: 'GET',
-		beforeSend: function(xhr){
-			xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('Token')}`);
-		},
-		success: function(res){
-      console.log("you made it");
-		},
-		error: function(err){
-      console.log("somthing went wrong");
-		}
-	});
-}
-
 function initApp() {
   signupHandler();
   loginHandler();
-
 }
 
 $(initApp);

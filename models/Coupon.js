@@ -1,21 +1,28 @@
 'use strict';
 const mongoose = require('mongoose');
 
+var ObjectId = mongoose.Schema.Types.ObjectId;
+
 const CouponSchema = mongoose.Schema({
     merchantName: {
         type: String,
         required: true
     },
     code: {
-        type: String
+        type: String,
+        required: true
     },
     expirationDate: {
-        type: String
+        type: String,
+        required: true
     },
     description: {
         type: String
     },
-    // userId: {type: ObjectId }
+    userId: {
+        type: ObjectId,
+        ref: 'User'
+    }
 });
 
 CouponSchema.methods.serialize = function () {
@@ -24,7 +31,8 @@ CouponSchema.methods.serialize = function () {
         merchantName: this.merchantName,
         code: this.code,
         expirationDate: this.expirationDate,
-        description: this.description
+        description: this.description,
+        userId: this.userId
     };
 }
 
