@@ -126,12 +126,14 @@ body {
     padding: 0 60px 60px 60px;
 }
 
-#addNewCouponModalLabel {
+#addNewCouponModalLabel,
+#editCouponModalLabel {
     text-align: center;
     margin-bottom: 40px;
 }
 
-.submit-add-coupon-btn {
+.submit-add-coupon-btn,
+.submit-edit-coupon-btn {
    margin-top: 10px;
 }
 
@@ -181,3 +183,12 @@ body {
     -ms-border-radius: 2px;
     -o-border-radius: 2px;
   }
+
+.btn-transparent {
+  background: #FFF;
+  border: none;
+}
+
+input[type="button" i] {
+  border: none;
+}

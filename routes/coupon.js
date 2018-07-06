@@ -44,23 +44,18 @@ router.get('/', (req, res) => {
 
 // CREATES A NEW COUPON
 router.post('/', jwtAuth, (req, res) => {
-
   console.log("This is the request from adding a coupon: " + req);
-
-  //const _userId = getUserIdFromJwt(req);
-  //console.log("This is the userId from JWT: " + _userId)
-
   const newCoupon = new CouponModel({
     merchantName: req.body.merchantName,
     code: req.body.code,
     expirationDate: req.body.expirationDate,
     description: req.body.description
-    //userId: _userId
   });
 
-    newCoupon.save()
+  newCoupon.save()
       .then(function(coupon) {
         const savedCoupon = coupon.toObject();
+        console.log(savedCoupon);
         // res.status(201).json(savedCoupon).redirect('/coupon');
         //console.log(savedCoupon);
         res.status(201).json(savedCoupon);
@@ -76,6 +71,36 @@ router.delete('/:id', (req, res) => {
   CouponModel.findByIdAndRemove(req.params.id)
   .then(coupon => res.status(204).end())
   .catch(err => res.status(500).json({message: 'Internal server error'}));
+});
+
+// EDITS A NEW COUPON
+router.put('/:id', (req, res) => {
+  console.log(`req.params.id:  ${req.params.id}`);
+  console.log(`req.body.id: ${req.body.id}`);
+  console.log(`The request on the put coupon endpoint is: ${Object.values(req.body)}`);
+  console.log(Object.values(req.body));
+  
+
+  // if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
+  //   res.status(400).json({
+  //     error: 'Request path id and request body id values must match'
+  //   });
+  // }
+
+
+  const updated = {};
+  const updateableFields = ['merchantName', 'code', 'expirationDate', 'description'];
+
+  updateableFields.forEach(field => {
+    if(field in req.body) {
+      updated[field] = req.body[field];
+    }
+  });
+
+  CouponModel.findByIdAndUpdate(req.params.id, {$set: updated }, { new: true})
+  .then(updatedCoupon => res.status(204).end())
+  .catch(err => res.status(500).json({ message: 'Something went wrong'}));
+
 });
 
 

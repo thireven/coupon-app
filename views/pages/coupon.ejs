@@ -15,7 +15,9 @@
                 <% coupons.forEach(function (coupon) { %>
                     <section role="region" class="coupon-container js-coupon-container" data-id="<%= coupon._id %>">
                         <div class="coupon-actions-nav">
-                            <span class="icons icon-budicon-classic edit-icon js-edit-icon" alt="edit-icon"></span>
+                            <button type="button" class="btn-transparent js-edit-coupon-btn" data-toggle="modal" data-target="#editCouponModal">
+                              <span class="icons icon-budicon-classic edit-icon js-edit-icon" alt="edit-icon"></span>
+                            </button>
                             <span class="icons icon-budicon-classic-2 delete-icon js-delete-icon" alt="delete-icon"></span>
                         </div>
                         <h2 class="coupon-merchant-name">
@@ -68,6 +70,47 @@
 
                                     <div class="center">
                                         <button type="submit" class="btn btn-primary submit-add-coupon-btn" id="js-submit-add-coupon-btn">add coupon</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section role="region" id="editCouponModelSection">
+                <div class="modal fade" id="editCouponModal" tabindex="-1" role="dialog" aria-labelledby="editCouponModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <h5 class="modal-title" id="editCouponModalLabel">Edit existing coupon</h5>
+                                <form id="js-add-coupon-form">
+                                    <div class="form-group">
+                                        <label for="merchantName">Merchant Name</label>
+                                        <input type="text" name="merchantName" class="form-control merchantName" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="code">Code</label>
+                                        <input type="text" name="code" class="form-control code" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="expirationDate">Expiration Date</label>
+                                        <input type="text" name="expirationDate" class="form-control expirationDate" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="description">Description</label>
+                                        <input type="text" name="description" class="form-control description" required>
+                                    </div>
+
+                                    <div class="center">
+                                        <button type="submit" class="btn btn-primary submit-edit-coupon-btn" id="js-submit-edit-coupon-btn">save edited coupon</button>
                                     </div>
                                 </form>
                             </div>
