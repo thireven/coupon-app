@@ -10,7 +10,7 @@ Coupons
 
 function renderCoupons(res){
   return`
-    <section role="region" class="coupon-container js-coupon-container" data-id="<%= coupon._id %>">
+    <section role="region" class="coupon-container js-coupon-container" data-id="${res._id}">
         <div class="coupon-actions-nav">
             <span class="icons icon-budicon-classic edit-icon js-edit-icon" alt="edit-icon"></span>
             <span class="icons icon-budicon-classic-2 delete-icon js-delete-icon" alt="delete-icon"></span>
@@ -19,70 +19,84 @@ function renderCoupons(res){
         <p class="coupon-code">${res.code}</p>
         <p class="coupon-expiration-date">Valid til ${res.expirationDate}</p>
         <p class="coupon-description">${res.description}</p>
+        <p class="coupon-description">${res._id}</p>
     </section>`;
 }
 
-function watchSubmitAddNewCoupon(){
+function watchSubmitAddNewCouponHandler(){
     $('#js-submit-add-coupon-btn').on('click', (e) => {
         event.preventDefault();
         console.log('you added a coupon');
         $('.modal').modal('toggle');
         //do a call to post coupon to db with endpoint /coupon
-        sendDataToAPI();
+        sendAddCouponDataToAPI();
     });
 }
 
-function sendDataToAPI() {
+function sendAddCouponDataToAPI() {
     $.ajax({
   		url: '/coupon',
+      type: 'POST',
+      beforeSend: function(xhr) {
+        xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('Token')}`);
+      },
       data: {
         merchantName: $('#merchantName').val(),
         code: $('#code').val(),
         expirationDate: $('#expirationDate').val(),
         description: $('#description').val()
       },
-  		type: 'POST',
+      dataType:'json',///////////////////JUST ADDED THIS/////////////////////////
   		success: function(res){
-        console.log(res);
         $('#merchantName').val('');
         $('#code').val('');
         $('#expirationDate').val('');
         $('#description').val('');
-        $('.js-coupon-section').append(renderCoupons(res));
+
+        $('.list-coupons-section').append(renderCoupons(res));
+
+        $('#js-msg-output').html(`<div class="alert alert-success alert-dismissible fade show text-center" role="alert">You have successfully added a coupon!
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          </div`);
   		},
   		error: function(err){
-        console.log("something went wrong");
+        console.log('something went wrong');
   		}
   	});
 }
 
-function watchDeleteBtn() {
-    $('.js-delete-icon').on('click', function(e) {
+function watchDeleteBtnHandler() {
+    $('#js-list-coupons-section').on('click','.js-delete-icon', function(e) {
         e.preventDefault();
-        console.log("delete coupon");
-        let couponId = $(".js-coupon-container").attr("data-id");
+        const couponId = $(this).closest('.js-coupon-container').data('id');
         console.log(couponId);
-        deleteCouponFromApi()
+        $(this).closest('.js-coupon-container').remove();
+        sendCouponToDeleteFromApi(couponId);
     });
 }
 
-function deleteCouponFromApi() {
-    const settings = {
-        url: `/coupon`,
-        type: 'DELETE',
-        dataType: 'json',
-        success: function(res) {
-          console.log("you deleted a coupon");
-        }
-    };
+function sendCouponToDeleteFromApi(id) {
+  console.log(`if I got here then i should delete this id: ${id} from the DB`);
+    $.ajax({
+      url: `/coupon/${id}`,
+      type: 'DELETE',
+      beforeSend: function(xhr) {
+        xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('Token')}`);
+      },
+      dataType: 'json',
+      success: function(res) {
+        console.log(`you successfully deleted a coupon`);
+      },
+      error: function(err) {
+        console.log(`Something happened when trying to delete ${res}`);
+      }
+    });
 }
 
 function initalizeCouponApp() {
-    watchSubmitAddNewCoupon();
-    watchDeleteBtn();
+    watchSubmitAddNewCouponHandler();
+    watchDeleteBtnHandler();
 }
 $(initalizeCouponApp);
-//when add btn is clicked then I want to render form
-//then when user clicks the add coupon btn then
-//it will submit the form and hit hit endpoint and enter in DB
-//it will then re-render the db results

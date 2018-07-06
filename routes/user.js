@@ -6,7 +6,6 @@ const jwt = require('jsonwebtoken');
 const {JWT_SECRET} = require('../config');
 const {User} = require('../models/User');
 
-
 const router = express.Router();
 
 const jsonParser = bodyParser.json();
@@ -132,9 +131,7 @@ router.post('/', jsonParser, (req, res) => {
   firstName = firstName.trim();
   lastName = lastName.trim();
 
-
-
-  return User.find({username})
+  return  User.find({username})
     .count()
     .then(count => {
       if (count > 0) {
@@ -175,16 +172,12 @@ const jwtAuth = passport.authenticate('jwt', {session: false});
 // checks to see if user is already logged in
 router.get('/logged', jwtAuth, (req, res) => {
 	const token = req.headers.authorization.split(' ')[1];
-  console.log(token);
+  console.log("token in user route: " + token);
 	const tokenPayload = jwt.verify(token, JWT_SECRET);
-  console.log(tokenPayload);
 	const _username = tokenPayload.user.username;
-  console.log(_username);
 
-  console.log(User.findOne({username: _username}));
 
-	User
-		.findOne({username: _username})
+	User.findOne({username: _username})
 		.then(user => {
       console.log(user);
 			return res.send(user.accountProfile());

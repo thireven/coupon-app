@@ -39,17 +39,19 @@ app.use(function (req, res, next) {
 passport.use(localStrategy);
 passport.use(jwtStrategy);
 
-const jwtAuth = passport.authenticate('jwt', { session: false });
+
 
 app.use('/', indexRouter);
-app.use('/users', userRouter);
-app.use('/auth', authRouter);
+app.use('/api/users/', userRouter);
+app.use('/api/auth', authRouter);
 app.use('/coupon', couponRouter);
 //app.use('/coupon', jwtAuth, couponRouter);
 
 
+const jwtAuth = passport.authenticate('jwt', { session: false });
+//console.log(passport.authenticate('jwt', { session: false }));
 
-// A protected endpoint which needs a valid JWT to access it
+//A protected endpoint which needs a valid JWT to access it
 // app.get('/api/protected', jwtAuth, (req, res) => {
 //   return res.json({
 //     data: 'rosebud'

@@ -1,7 +1,6 @@
 'use strict';
 const mongoose = require('mongoose');
-
-var ObjectId = mongoose.Schema.Types.ObjectId;
+const User = require('./User');
 
 const CouponSchema = mongoose.Schema({
     merchantName: {
@@ -19,20 +18,20 @@ const CouponSchema = mongoose.Schema({
     description: {
         type: String
     },
-    userId: {
-        type: ObjectId,
-        ref: 'User'
-    }
+    // userId: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   //required: true
+    // }
 });
 
 CouponSchema.methods.serialize = function () {
     return {
-        id: this._id,
+        couponId: this._id,
         merchantName: this.merchantName,
         code: this.code,
         expirationDate: this.expirationDate,
         description: this.description,
-        userId: this.userId
+        // userId: this.userId
     };
 }
 
