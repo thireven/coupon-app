@@ -20,19 +20,13 @@
                             </button>
                             <span class="icons icon-budicon-classic-2 delete-icon js-delete-icon" alt="delete-icon"></span>
                         </div>
-                        <h2 class="coupon-merchant-name">
-                            <%= coupon.merchantName %>
-                        </h2>
-                        <p class="coupon-code">
-                            <%= coupon.code %>
-                        </p>
-                        <p class="coupon-expiration-date">
-                            Valid til
-                            <%= coupon.expirationDate %>
-                        </p>
-                        <p class="coupon-description">
-                            <%= coupon.description %>
-                        </p>
+                        <h2 class="coupon-merchant-name"><%= coupon.merchantName %></h2>
+
+                        <p class="coupon-code"><%= coupon.code %></p>
+
+                        <p class="coupon-expiration-date"><%= coupon.expirationDate %></p>
+
+                        <p class="coupon-description"><%= coupon.description %></p>
                     </section>
                     <% }) %>
             </section>
@@ -91,22 +85,22 @@
                                 <form id="js-add-coupon-form">
                                     <div class="form-group">
                                         <label for="merchantName">Merchant Name</label>
-                                        <input type="text" name="merchantName" class="form-control merchantName" required>
+                                        <input type="text" name="merchantName" class="form-control input-merchantName" required>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="code">Code</label>
-                                        <input type="text" name="code" class="form-control code" required>
+                                        <input type="text" name="code" class="form-control input-code" required>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="expirationDate">Expiration Date</label>
-                                        <input type="text" name="expirationDate" class="form-control expirationDate" required>
+                                        <input type="text" name="expirationDate" class="form-control input-expirationDate" required>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="description">Description</label>
-                                        <input type="text" name="description" class="form-control description" required>
+                                        <input type="text" name="description" class="form-control input-description" required>
                                     </div>
 
                                     <div class="center">
