@@ -50,7 +50,6 @@ function loginHandler() {
         //this saves the authToken that comes from response to the Token variable
         localStorage.setItem('Token', res.authToken);
         console.log("What is res.authToken Value? " + res.authToken);
-        //logInWithToken();
         GoToProtectedEndpointWithToken();
       },
       error: (err) => {
@@ -70,9 +69,9 @@ function GoToProtectedEndpointWithToken() {
   $.ajax({
     url: '/coupon',
     type: 'GET',
-    // beforeSend: function(xhr) {
-    //   xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('Token')}`);
-    // },
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('Token')}`);
+    },
     success: function(res) {
       window.location.href = '/coupon';
       console.log('You successfully got to protected endpoint');
@@ -83,40 +82,9 @@ function GoToProtectedEndpointWithToken() {
   })
 }
 
-
-
 function initApp() {
   signupHandler();
   loginHandler();
 }
 
 $(initApp);
-
-
-
-
-
-// function logInWithToken(){
-// 	// get user information
-// 	$.ajax({
-// 		url: '/api/users/logged',
-// 		type: 'GET',
-// 		beforeSend: function(xhr){
-// 			xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('Token')}`);
-// 		},
-// 		success: function(res){
-// 			//profile_account_detail = res;
-//       console.log("What is the response? " + res);
-//       $('#input-username').val('');
-//       $('#input-password').val('');
-//
-//       console.log('our Account has been successfully created');
-//       $('#js-msg-output').html(`<div class="alert alert-success text-center" role="alert">Success</div>`);
-//
-//       // window.location.href = '/coupon';
-//     },
-// 		error: function(err){
-//       console.log('something went wrong');
-// 		}
-// 	});
-// }

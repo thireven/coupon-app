@@ -19,12 +19,6 @@ const jsonParser = bodyParser.json();
 // 	return userId;
 // }
 const jwtAuth = passport.authenticate('jwt', { session: false });
-// router.get('/api/protected', jwtAuth, (req, res) => {
-// 	return res.json({
-//     data: 'rosebud'
-//    });
-// });
-
 
 // GETS ALL COUPONS
 router.get('/', (req, res) => {
@@ -67,19 +61,19 @@ router.post('/', jwtAuth, (req, res) => {
 });
 
 // DELETES A NEW COUPON
-router.delete('/:id', (req, res) => {
+router.delete('/:id', jwtAuth, (req, res) => {
   CouponModel.findByIdAndRemove(req.params.id)
   .then(coupon => res.status(204).end())
   .catch(err => res.status(500).json({message: 'Internal server error'}));
 });
 
 // EDITS A NEW COUPON
-router.put('/:id', (req, res) => {
+router.put('/:id', jwtAuth, (req, res) => {
   console.log(`req.params.id:  ${req.params.id}`);
   console.log(`req.body.id: ${req.body.id}`);
   console.log(`The request on the put coupon endpoint is: ${Object.values(req.body)}`);
   console.log(Object.values(req.body));
-  
+
 
   // if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
   //   res.status(400).json({

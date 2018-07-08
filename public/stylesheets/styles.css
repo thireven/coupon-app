@@ -104,15 +104,7 @@ body {
     margin-bottom: 20px;
 }
 
-.icons {
-    font-size: 26px;
-    margin-left: 10px;
-}
 
-.delete-icon,
-.edit-icon {
-    cursor: pointer;
-}
 
 .coupon-actions-nav{
     text-align: right;
@@ -184,6 +176,15 @@ body {
     -o-border-radius: 2px;
   }
 
+/* ICONS */
+.icons {
+    font-size: 26px;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+
+/* BUTTONS */
 .btn-transparent {
   background: #FFF;
   border: none;
@@ -191,4 +192,15 @@ body {
 
 input[type="button" i] {
   border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.clsDatePicker {
+    z-index: 100000;
+}
+
+.datepicker {
+  z-index:2000 !important;
 }

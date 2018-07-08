@@ -18,10 +18,10 @@ const CouponSchema = mongoose.Schema({
     description: {
         type: String
     },
-    // userId: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   //required: true
-    // }
+    userId: {
+      type: mongoose.Schema.Types.ObjectId
+      //required: true
+    }
 });
 
 CouponSchema.methods.serialize = function () {
@@ -31,7 +31,7 @@ CouponSchema.methods.serialize = function () {
         code: this.code,
         expirationDate: this.expirationDate,
         description: this.description,
-        // userId: this.userId
+        userId: this.userId
     };
 }
 
