@@ -11,10 +11,10 @@ function renderCoupons(res) {
             </button>
             </div>
             <h2 class="coupon-merchant-name">${res.merchantName}</h2>
-            <p class="coupon-code">${res.code}</p>
+            <p class="coupon-code js-coupon-code">${res.code}</p>
             <p class="coupon-expiration-date">${res.expirationDate}</p>
             <p class="coupon-description">${res.description}</p>
-        </section>`;
+          </section>`;
 }
 
 function renderAddModal() {
@@ -267,6 +267,13 @@ function sendCouponToEditFromApi(id) {
         console.log(`Something happened when trying to edit ${err}`);
       }
     });
+}
+
+function copyCouponCodeToClipboard() {
+  $('.js-coupon-container').on('click','.js-coupon-code', (e) => {
+    e.stopPropagation();
+    console.log('coupon code copied to clipboard.');
+  });
 }
 
 function initalizeCouponApp() {

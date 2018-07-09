@@ -24,11 +24,8 @@
                             </button>
                         </div>
                         <h2 class="coupon-merchant-name"><%= coupon.merchantName %></h2>
-
-                        <p class="coupon-code"><%= coupon.code %></p>
-
+                        <p class="coupon-code js-coupon-code"><%= coupon.code %></p>
                         <p class="coupon-expiration-date"><%= coupon.expirationDate %></p>
-
                         <p class="coupon-description"><%= coupon.description %></p>
                     </section>
                     <% }) %>
@@ -41,13 +38,5 @@
                 <!-- Edit modal will render here -->
             </section>
         </section>
-      <script>
-          $(function() {
-              $('[data-toggle="datepicker"]').datepicker({
-                autoHide: true,
-                zIndex: 2048,
-              });
-            });
-      </script>
       <script src="javascripts/coupon.js"></script>
 <% include ../partials/footer %>
