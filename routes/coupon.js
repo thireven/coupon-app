@@ -7,18 +7,20 @@ const CouponModel = require('../models/Coupon');
 
 var router = express.Router();
 const jsonParser = bodyParser.json();
-// const jwtAuth = passport.authenticate('jwt', { session: false });
+const jwtAuth = passport.authenticate('jwt', { session: false });
 
 //GETS THE USERID FROM JWT - returns the userid from a request 'authorization' header
-// function getUserIdFromJwt(req){
-// 	const token = req.headers.authorization.split(' ')[1];
-//   console.log(token);
-// 	const tokenPayload = jwt.verify(token, JWT_SECRET);
-// 	const userId = tokenPayload.user.id;
-//   console.log("This is the userId from JWT: " + userId);
-// 	return userId;
-// }
-const jwtAuth = passport.authenticate('jwt', { session: false });
+function getUserIdFromJwt(req){
+  //This removes the Bearer in front of the token and just gets token
+  const token = req.headers.authorization.split(' ')[1];
+  console.log("********The token is: " + token);
+	const tokenPayload = jwt.verify(token, JWT_SECRET);
+	const userId = tokenPayload.user.userId;
+  console.log("This is the userId from JWT: " + userId);
+	return userId;
+}
+
+
 
 // GETS ALL COUPONS
 router.get('/', (req, res) => {
@@ -38,12 +40,18 @@ router.get('/', (req, res) => {
 
 // CREATES A NEW COUPON
 router.post('/', jwtAuth, (req, res) => {
-  console.log("This is the request from adding a coupon: " + req);
+
+  const _userId = getUserIdFromJwt(req);
+  console.log(`The current user is: ${_userId}`);
+
+  console.log("This is the request from adding a coupon");
+
   const newCoupon = new CouponModel({
     merchantName: req.body.merchantName,
     code: req.body.code,
     expirationDate: req.body.expirationDate,
-    description: req.body.description
+    description: req.body.description,
+    userId: _userId
   });
 
   newCoupon.save()

@@ -21,7 +21,7 @@ function signupHandler(){
         $('#input-username').val('');
         $('#input-password').val('');
 
-        window.location.href = '/login';
+        //window.location.href = '/login';
 
         $('#js-msg-output').html(`<div class="alert alert-success alert-dismissible fade show text-center" role="alert">Your Account has been registered!
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">

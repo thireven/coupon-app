@@ -26,7 +26,7 @@ const CouponSchema = mongoose.Schema({
 
 CouponSchema.methods.serialize = function () {
     return {
-        // couponId: this._id,
+        id: this._id,
         merchantName: this.merchantName,
         code: this.code,
         expirationDate: this.expirationDate,
