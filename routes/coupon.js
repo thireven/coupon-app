@@ -17,10 +17,9 @@ function getUserIdFromJwt(req){
 	const tokenPayload = jwt.verify(token, JWT_SECRET);
 	const userId = tokenPayload.user.userId;
   console.log("This is the userId from JWT: " + userId);
-	return userId;
+
+  return userId;
 }
-
-
 
 // GETS ALL COUPONS
 router.get('/', (req, res) => {

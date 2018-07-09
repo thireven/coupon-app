@@ -22,16 +22,22 @@
             <%}%>
                     <a class="nav-link" href="/signup">Sign Up</a>
                 </li>
+
             <% if(title === 'Login'){%>
-                <li class="nav-item active">
+              <li class="nav-item active">
             <%} else{%>
-                <li class="nav-item">
+              <li class="nav-item">
             <%}%>
                     <a class="nav-link" href="/login">Login</a>
                 </li>
-            <!-- <li class="nav-item">
-                <a class="nav-link" href="/logout">Log out</a>
-            </li> -->
+
+            <% if(title === 'Logout'){%>
+              <li class="nav-item active">
+            <%} else{%>
+              <li class="nav-item js-logout">
+            <%}%>
+                <a class="nav-link" href="#">Log out</a>
+              </li>
         </ul>
     </div>
 </nav>

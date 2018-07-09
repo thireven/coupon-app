@@ -269,12 +269,16 @@ function sendCouponToEditFromApi(id) {
     });
 }
 
+/*
+//HAVE TO GET THIS WORKING
 function copyCouponCodeToClipboard() {
   $('.js-coupon-container').on('click','.js-coupon-code', (e) => {
     e.stopPropagation();
     console.log('coupon code copied to clipboard.');
   });
 }
+
+*/
 
 function initalizeCouponApp() {
     watchAddBtnHandler();

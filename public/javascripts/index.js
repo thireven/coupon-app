@@ -1,6 +1,6 @@
 'use strict';
 
-function signupHandler(){
+function signupHandler() {
   $('#signup-section').on('submit', '#js-signup-form', (e) => {
     e.preventDefault();
     console.log("signup form submitted");
@@ -73,7 +73,7 @@ function GoToProtectedEndpointWithToken() {
       xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('Token')}`);
     },
     success: function(res) {
-      window.location.href = '/coupon';
+      // window.location.href = '/coupon';
       console.log('You successfully got to protected endpoint');
     },
     error: function(err) {
@@ -82,9 +82,19 @@ function GoToProtectedEndpointWithToken() {
   })
 }
 
+function logoutHandler() {
+  $('.js-logout').on('click', (e) => {
+    localStorage.removeItem('Token');
+    console.log('you are logged out!');
+    location.reload();
+  });
+}
+
+
 function initApp() {
   signupHandler();
   loginHandler();
+  logoutHandler();
 }
 
 $(initApp);
