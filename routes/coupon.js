@@ -17,21 +17,20 @@ function getUserIdFromJwt(req){
 	const tokenPayload = jwt.verify(token, JWT_SECRET);
 	const userId = tokenPayload.user.userId;
   console.log("This is the userId from JWT: " + userId);
-
   return userId;
 }
 
 
 // GETS ALL COUPONS
-router.get('/', jwtAuth, (req, res) => {
+router.get('/', (req, res) => {
   console.log(req);
 
-  const _userId = getUserIdFromJwt(req);
-  console.log(`The current user is: ${_userId}`);
-
-  CouponModel.find({userId: _userId})
+  CouponModel.find({})
     .then(coupons =>
-        res.json({coupons}))
+        res.render('pages/coupon', {
+        title: 'Coupon',
+        coupons: coupons
+    }))
     .catch(err => {
         console.error(err);
         res.status(500).json({
@@ -39,6 +38,24 @@ router.get('/', jwtAuth, (req, res) => {
         });
     });
 });
+
+//SOL 1
+// router.get('/', jwtAuth, (req, res) => {
+//   console.log(req);
+//
+//   const _userId = getUserIdFromJwt(req);
+//   console.log(`The current user is: ${_userId}`);
+//
+//   CouponModel.find({userId: _userId})
+//     .then(coupons =>
+//         res.json({coupons}))
+//     .catch(err => {
+//         console.error(err);
+//         res.status(500).json({
+//         message: 'Internal server error'
+//         });
+//     });
+// });
 
 // GETS ALL COUPONS FOR SPECIFIC USERID
 router.get('/:token', (req, res) => {

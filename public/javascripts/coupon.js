@@ -1,5 +1,5 @@
 'use strict';
-/*
+
 function loadUserCoupons() {
   $('.js-logout').removeClass('hide');
   $('.js-coupon').removeClass('hide');
@@ -39,7 +39,7 @@ function loadUserCoupons() {
     }
   })
 }
-*/
+
 function renderCoupons(res) {
   return` <section role="region" class="coupon-container js-coupon-container" data-id="${res._id}">
             <div class="coupon-actions-nav">
@@ -341,12 +341,10 @@ function archiveCoupon(){
 
 
 function initalizeCouponApp() {
-    //loadUserCoupons();
+    loadUserCoupons();
     watchAddBtnHandler();
     watchDeleteBtnHandler();
     watchEditBtnHandler();
-
-    archiveCoupon();
 }
 
 $(initalizeCouponApp);
