@@ -23,14 +23,15 @@ function getUserIdFromJwt(req){
 
 
 // GETS ALL COUPONS
-router.get('/', (req, res) => {
+router.get('/', jwtAuth, (req, res) => {
   console.log(req);
-  CouponModel.find({})
+
+  const _userId = getUserIdFromJwt(req);
+  console.log(`The current user is: ${_userId}`);
+
+  CouponModel.find({userId: _userId})
     .then(coupons =>
-        res.render('pages/coupon', {
-        title: 'Coupon',
-        coupons: coupons
-    }))
+        res.json({coupons}))
     .catch(err => {
         console.error(err);
         res.status(500).json({

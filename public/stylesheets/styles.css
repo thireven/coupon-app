@@ -160,6 +160,11 @@ body {
     margin-bottom: 20px;
 }
 
+.disabled {
+    background: 1px solid #eeeeee;
+    color: #cacaca;
+}
+
 .coupon-merchant-name h2 {
     margin-bottom: 10px;
 }
