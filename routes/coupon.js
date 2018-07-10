@@ -69,6 +69,7 @@ router.post('/', jwtAuth, (req, res) => {
     code: req.body.code,
     expirationDate: req.body.expirationDate,
     description: req.body.description,
+    couponUsed: this.couponUsed,
     userId: _userId
   });
 

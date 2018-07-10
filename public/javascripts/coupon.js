@@ -1,8 +1,11 @@
 'use strict';
 
 function loadUserCoupons() {
-  //I want to pass the bear token in the headers to gain access to coupon
+  $('.js-logout').removeClass('hide');
+  $('.js-coupon').removeClass('hide');
   var token = localStorage.getItem('Token');
+
+  //I want to pass the bear token in the headers to gain access to coupon
   $.ajax({
     url: '/coupon/' + token,
     type: 'GET',
@@ -27,7 +30,12 @@ function loadUserCoupons() {
       $('#coupons').html(html);
     },
     error: function(err) {
-      console.log('something went wrong when trying to get to the protected endpoint');
+      if(token === null) {
+        console.log('Token is empty and you are not logged in. Please log in!!!');
+      }
+      else{
+        console.log('something went wrong when trying to get to the protected endpoint');
+      }
     }
   })
 }
@@ -135,13 +143,13 @@ function renderEditModal() {
 
 function watchAddBtnHandler() {
   $('.js-add-new-coupon-btn').on('click', (e) => {
-      $('#addNewCouponModelSection').html(renderAddModal());
-      $('#addNewCouponModal').modal('show');
-      $('[data-toggle="datepicker"]').datepicker({
-        autoHide: true,
-        zIndex: 2048,
-      });
-      watchSubmitAddNewCouponHandler();
+    $('#addNewCouponModelSection').html(renderAddModal());
+    $('#addNewCouponModal').modal('show');
+    $('[data-toggle="datepicker"]').datepicker({
+      autoHide: true,
+      zIndex: 2048,
+    });
+    watchSubmitAddNewCouponHandler();
   })
 }
 
@@ -176,11 +184,17 @@ function sendAddCouponDataToAPI() {
 
         $('.list-coupons-section').append(renderCoupons(res));
 
+        $('#js-msg-output').show();
+
         $('#js-msg-output').html(`<div class="alert alert-success alert-dismissible fade show text-center" role="alert">You have successfully added a coupon!
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
           </div`);
+
+          setTimeout(() => {
+             $('#js-msg-output').hide();
+          }, 2000);
   		},
   		error: function(err){
         console.log('something went wrong');
@@ -287,12 +301,17 @@ function sendCouponToEditFromApi(id) {
         $(`[data-id = ${_couponId}] .coupon-expiration-date`).html(expirationDate);
         $(`[data-id = ${_couponId}] .coupon-description`).html(inputDescription);
 
+        $('#js-msg-output').show();
 
         $('#js-msg-output').html(`<div class="alert alert-success alert-dismissible fade show text-center" role="alert">You have successfully edited a coupon!
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
           </div`);
+
+        setTimeout(() => {
+          $('#js-msg-output').hide();
+        }, 2000);
       },
       error: function(err) {
         console.log(`Something happened when trying to edit ${err}`);

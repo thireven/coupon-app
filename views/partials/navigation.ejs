@@ -7,9 +7,9 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <% if(title === 'Coupon'){%>
-                <li class="nav-item active js-coupon-link">
+                <li class="nav-item active js-coupon hide">
             <%} else{%>
-                <li class="nav-item js-coupon-link">
+                <li class="nav-item js-coupon hide">
             <%}%>
                     <a class="nav-link" href="/coupon">Coupon</a>
                 </li>
@@ -32,9 +32,9 @@
                 </li>
 
             <% if(title === 'Logout'){%>
-              <li class="nav-item active js-logout">
+              <li class="nav-item active js-logout hide">
             <%} else{%>
-              <li class="nav-item js-logout">
+              <li class="nav-item js-logout hide">
             <%}%>
                 <a class="nav-link" href="#">Log out</a>
               </li>

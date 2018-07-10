@@ -52,6 +52,9 @@ function loginHandler() {
         //this saves the authToken that comes from response to the Token variable
         localStorage.setItem('Token', res.authToken);
         console.log('What is res.authToken Value?' + res.authToken);
+
+        $('.js-logout').removeClass('hide');
+        $('.js-coupon').removeClass('hide');
         window.location.href = '/coupon';
       },
       error: (err) => {
@@ -68,9 +71,30 @@ function loginHandler() {
 
 function logoutHandler() {
   $('.js-logout').on('click', (e) => {
-    localStorage.removeItem('Token');
-    location.reload();
-    console.log('you are logged out!');
+    var token = localStorage.getItem('Token');
+
+    if(token) {
+      localStorage.removeItem('Token');
+      // location.reload();
+      console.log('you are logged out!');
+
+      $('#js-msg-output').show();
+
+      $('#js-msg-output').html(`<div class="alert alert-success alert-dismissible fade show text-center" role="alert">You have successfully Logged out!
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div`);
+
+      window.location.href = '/';
+
+      setTimeout(() => {
+        $('#js-msg-output').hide();
+      }, 1000);
+    }
+    else{
+      console.log('there is no token. you you are not signed in');
+    }
   });
 }
 
