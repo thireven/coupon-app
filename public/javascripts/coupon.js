@@ -1,11 +1,10 @@
 'use strict';
 
+/*
 function loadUserCoupons() {
   $('.js-logout').removeClass('hide');
   $('.js-coupon').removeClass('hide');
   var token = localStorage.getItem('Token');
-
-  //I want to pass the bear token in the headers to gain access to coupon
   $.ajax({
     url: '/coupon/' + token,
     type: 'GET',
@@ -39,6 +38,7 @@ function loadUserCoupons() {
     }
   })
 }
+*/
 
 function renderCoupons(res) {
   return` <section role="region" class="coupon-container js-coupon-container" data-id="${res._id}">
@@ -341,7 +341,8 @@ function archiveCoupon(){
 
 
 function initalizeCouponApp() {
-    loadUserCoupons();
+    //loadUserCoupons();
+    //getUserCoupons();
     watchAddBtnHandler();
     watchDeleteBtnHandler();
     watchEditBtnHandler();

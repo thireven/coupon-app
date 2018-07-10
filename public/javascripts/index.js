@@ -38,39 +38,6 @@ function signupHandler() {
   });
 }
 
-function loginHandler() {
-  $('#login-section').on('submit', '#js-login-form', (e) => {
-    e.preventDefault();
-    $.ajax({
-      url: '/api/auth/login',
-      data: {
-        username: $('#input-username').val(),
-        password: $('#input-password').val()
-      },
-      type: 'POST',
-      success: function(res) {
-        //this saves the authToken that comes from response to the Token variable
-        localStorage.setItem('Token', res.authToken);
-        console.log('What is res.authToken Value?' + res.authToken);
-
-        $('.js-logout').removeClass('hide');
-        $('.js-coupon').removeClass('hide');
-        window.location.href = '/coupon';
-
-        //getUserCoupons();
-      },
-      error: (err) => {
-        console.log(err);
-        $('#js-msg-output').html(`<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">Something is wrong!
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          </div`);
-      }
-    });
-  });
-}
-
 function logoutHandler() {
   $('.js-logout').on('click', (e) => {
     var token = localStorage.getItem('Token');
@@ -100,7 +67,37 @@ function logoutHandler() {
   });
 }
 
-/*SOL1
+function loginHandler() {
+  $('#login-section').on('submit', '#js-login-form', (e) => {
+    e.preventDefault();
+    $.ajax({
+      url: '/api/auth/login',
+      data: {
+        username: $('#input-username').val(),
+        password: $('#input-password').val()
+      },
+      type: 'POST',
+      success: function(res) {
+        //this saves the authToken that comes from response to the Token variable
+        localStorage.setItem('Token', res.authToken);
+        console.log('What is res.authToken Value?' + res.authToken);
+
+        $('.js-logout').removeClass('hide');
+        $('.js-coupon').removeClass('hide');
+        getUserCoupons();
+      },
+      error: (err) => {
+        console.log(err);
+        $('#js-msg-output').html(`<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">Something is wrong!
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          </div`);
+      }
+    });
+  });
+}
+
 function getUserCoupons() {
   $('.js-logout').removeClass('hide');
   $('.js-coupon').removeClass('hide');
@@ -109,6 +106,33 @@ function getUserCoupons() {
       xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('Token')}`);
     },
     url: '/coupon/',
+    type: 'GET',
+    success: function(res) {
+      console.log(`The user id is: ${res._userId}`);
+      //renderCouponsToPage(res);
+    },
+    error: function(err) {
+      if(token === null) {
+        console.log('Token is empty and you are not logged in. Please log in!!!');
+      }
+      else{
+        console.log('something went wrong when trying to get to the protected endpoint');
+      }
+    }
+  })
+}
+
+/*
+function renderCouponsToPage(res){
+  console.log('Im in the renderCouponToPage');
+  console.log('the res is' + res);
+  console.log(`The userId is ${res._userId}`);
+
+  $.ajax({
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('Token')}`);
+    },
+    url: `/coupon/${res._userId}`,
     type: 'GET',
     success: function(res) {
       console.log(res);
@@ -130,7 +154,8 @@ function getUserCoupons() {
                 </section>`
       });
       $('#coupons').html(html);
-      //window.location.href = '/coupon';
+
+      // window.location.href = `/coupon/${res._userId}`;
     },
     error: function(err) {
       if(token === null) {
