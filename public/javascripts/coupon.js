@@ -1,5 +1,37 @@
 'use strict';
 
+function loadUserCoupons() {
+  //I want to pass the bear token in the headers to gain access to coupon
+  var token = localStorage.getItem('Token');
+  $.ajax({
+    url: '/coupon/' + token,
+    type: 'GET',
+    success: function(res) {
+      var html = "";
+      res.coupons.map(function(coupon){
+        html +=`<section role="region" class="coupon-container js-coupon-container" data-id="${coupon._id}">
+                  <div class="coupon-actions-nav">
+                      <button type="button" class="btn-transparent edit-btn js-edit-coupon-btn " data-toggle="modal" data-target="#editCouponModal">
+                        <span class="icons icon-budicon-classic js-edit-icon" alt="edit-icon"></span>
+                      </button>
+                      <button type="button" class="btn-transparent" >
+                        <span class="icons icon-budicon-classic-2 js-delete-icon" alt="delete-icon"></span>
+                      </button>
+                  </div>
+                  <h2 class="coupon-merchant-name">${coupon.merchantName}</h2>
+                  <p class="coupon-code js-coupon-code">${coupon.code}</p>
+                  <p class="coupon-expiration-date">${coupon.expirationDate}</p>
+                  <p class="coupon-description">${coupon.description}</p>
+                </section>`
+      });
+      $('#coupons').html(html);
+    },
+    error: function(err) {
+      console.log('something went wrong when trying to get to the protected endpoint');
+    }
+  })
+}
+
 function renderCoupons(res) {
   return` <section role="region" class="coupon-container js-coupon-container" data-id="${res._id}">
             <div class="coupon-actions-nav">
@@ -196,7 +228,6 @@ function watchEditBtnHandler() {
         zIndex: 2048,
       });
 
-
       const couponId = $(this).parent().parent().parent().attr('data-id');
       console.log(`The coupon id of the edit coupon ${couponId}`);
 
@@ -281,6 +312,7 @@ function copyCouponCodeToClipboard() {
 */
 
 function initalizeCouponApp() {
+    loadUserCoupons();
     watchAddBtnHandler();
     watchDeleteBtnHandler();
     watchEditBtnHandler();

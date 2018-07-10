@@ -13,7 +13,7 @@ const jwtAuth = passport.authenticate('jwt', { session: false });
 function getUserIdFromJwt(req){
   //This removes the Bearer in front of the token and just gets token
   const token = req.headers.authorization.split(' ')[1];
-  console.log("********The token is: " + token);
+  console.log('The token is: ' + token);
 	const tokenPayload = jwt.verify(token, JWT_SECRET);
 	const userId = tokenPayload.user.userId;
   console.log("This is the userId from JWT: " + userId);
@@ -21,8 +21,10 @@ function getUserIdFromJwt(req){
   return userId;
 }
 
+
 // GETS ALL COUPONS
 router.get('/', (req, res) => {
+  console.log(req);
   CouponModel.find({})
     .then(coupons =>
         res.render('pages/coupon', {
@@ -37,12 +39,29 @@ router.get('/', (req, res) => {
     });
 });
 
+// GETS ALL COUPONS FOR SPECIFIC USERID
+router.get('/:token', (req, res) => {
+  const tokenPayload = jwt.verify(req.params.token, JWT_SECRET);
+	const userId = tokenPayload.user.userId;
+  console.log(userId);
+
+  CouponModel.find({userId: userId})
+    .then(coupons =>
+        res.json({coupons}))
+    .catch(err => {
+        console.error(err);
+        res.status(500).json({
+        message: 'Internal server error'
+        });
+    });
+});
+
 // CREATES A NEW COUPON
 router.post('/', jwtAuth, (req, res) => {
 
   const _userId = getUserIdFromJwt(req);
-  console.log(`The current user is: ${_userId}`);
 
+  console.log(`The current user is: ${_userId}`);
   console.log("This is the request from adding a coupon");
 
   const newCoupon = new CouponModel({
@@ -69,6 +88,7 @@ router.post('/', jwtAuth, (req, res) => {
 
 // DELETES A NEW COUPON
 router.delete('/:id', jwtAuth, (req, res) => {
+  console.log(req);
   CouponModel.findByIdAndRemove(req.params.id)
   .then(coupon => res.status(204).end())
   .catch(err => res.status(500).json({message: 'Internal server error'}));
