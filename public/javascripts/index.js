@@ -28,7 +28,6 @@ function signupHandler() {
           </button>
           </div`);
 
-
         window.location.href = '/login';
       },
       error: (err) => {
@@ -84,6 +83,8 @@ function loginHandler() {
 
         $('.js-logout').removeClass('hide');
         $('.js-coupon').removeClass('hide');
+
+        //window.location.href = '/coupon';
         getUserCoupons();
       },
       error: (err) => {

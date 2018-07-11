@@ -12,18 +12,18 @@ function loadUserCoupons() {
       var html = "";
       res.coupons.map(function(coupon){
         html +=`<section role="region" class="coupon-container js-coupon-container" data-id="${coupon._id}">
-                  <div class="coupon-actions-nav">
-                      <button type="button" class="btn-transparent edit-btn js-edit-coupon-btn " data-toggle="modal" data-target="#editCouponModal">
-                        <span class="icons icon-budicon-classic js-edit-icon" alt="edit-icon"></span>
-                      </button>
-                      <button type="button" class="btn-transparent" >
-                        <span class="icons icon-budicon-classic-2 js-delete-icon" alt="delete-icon"></span>
-                      </button>
-                  </div>
-                  <h2 class="coupon-merchant-name">${coupon.merchantName}</h2>
-                  <p class="coupon-code js-coupon-code">${coupon.code}</p>
-                  <p class="coupon-expiration-date">${coupon.expirationDate}</p>
-                  <p class="coupon-description">${coupon.description}</p>
+                    <div class="coupon-actions-nav">
+                        <button type="button" class="btn-transparent edit-btn js-edit-coupon-btn " data-toggle="modal" data-target="#editCouponModal">
+                          <span class="icons icon-budicon-classic js-edit-icon" alt="edit-icon"></span>
+                        </button>
+                        <button type="button" class="btn-transparent" >
+                          <span class="icons icon-budicon-classic-2 js-delete-icon" alt="delete-icon"></span>
+                        </button>
+                    </div>
+                    <h2 class="coupon-merchant-name">${coupon.merchantName}</h2>
+                    <p class="coupon-code js-coupon-code">${coupon.code}</p>
+                    <p class="coupon-expiration-date">${coupon.expirationDate}</p>
+                    <p class="coupon-description">${coupon.description}</p>
                 </section>`
       });
       $('#coupons').html(html);
@@ -39,7 +39,6 @@ function loadUserCoupons() {
   })
 }
 */
-
 function renderCoupons(res) {
   return` <section role="region" class="coupon-container js-coupon-container" data-id="${res._id}">
             <div class="coupon-actions-nav">
@@ -330,17 +329,9 @@ function copyCouponCodeToClipboard() {
 
 */
 
-/*
-//HAVE TO GET THIS WORKING
-function archiveCoupon(){
-  $('.js-coupon-container').on('click', (e) => {
-    alert('you clicked on the coupon');
-  });
-}
-*/
-
 
 function initalizeCouponApp() {
+
     //loadUserCoupons();
     //getUserCoupons();
     watchAddBtnHandler();
